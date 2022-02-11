@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nerdle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="title">
+        <h1>Nerdlegame Clone </h1>
+        <div class="repo">
+            <a class="repo-link glow-on-hover" target="_blank" href="https://github.com/aozien">github/aozien </a>
+           </div>
+    </div>
+ 
+   
+   <p> Guess the secret equation with the least amount of trails.
+   </p>
+   <div class="input-guess">
+       <input type="text" class="txt-input">
+       <input type="button" class="btn" value="Submit" onclick="handleSubmitBtnClick()">
+   </div>
+   <div id="container">
+    
+   </div>
+    <script src="./game.js"></script>
+    <div class="manage-secret">
+            <input type="button" class="btn" value="Change secret" onclick="toggleSecret()">
+        <div class="change-secret" style="display: none;">
+            <input type="text" class="txt-input">
+            <input type="button" class="btn" value="Update" onclick="handleChangeSecretBtnClick()">
+        </div>
+    </div>
+
+</body>
+</html>
