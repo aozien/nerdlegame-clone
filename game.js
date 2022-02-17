@@ -24,7 +24,7 @@ function guess(equation) {
 
     let valid = eval(equation.split('=')[0].replace(/^0+/ig,"")) == eval(equation.split('=')[1].replace(/^0+/ig,""))
     if(!valid)
-    return showError("the input is not a valid equation.",equation);
+    return showError(`the input (${equation}) is not a valid equation`);
 
     this.values = chars.map(a => new block(a));
     this.equation = equation;
@@ -95,27 +95,12 @@ function drawGuess(guess){
     }
 }
 
-
-function handleSubmitBtnClick(){
-    let input = document.querySelector(".input-guess .txt-input");
-    evaluateGuess( input.value)
-}
-function handleChangeSecretBtnClick(){
-    let input = document.querySelector(".manage-secret .txt-input");
-    changeSecret( input.value)
-}
 function changeSecret(newSecret){
     secretComponent = new guess(newSecret);
      document.getElementById("container").innerHTML="";
 }
-function toggleSecret(){
-    let element=document.querySelector('.change-secret');
-    let isHidden = element.style.display =="none";
-    element.style.display = isHidden?"inline-block":"none";
-    let input=document.querySelector(".manage-secret .txt-input");
-    input.value = secretComponent.equation;
-}
+
 function showError(msg){
-    console.error(msg);
-    alert(msg);
+    // console.error(msg);
+    // alert(msg);
 }
