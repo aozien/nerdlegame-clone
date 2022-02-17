@@ -21,6 +21,7 @@ function guess(equation) {
         showError("block array length error", charArray);
         return;
     }
+
     let valid = eval(equation.split('=')[0].replace(/^0+/ig,"")) == eval(equation.split('=')[1].replace(/^0+/ig,""))
     if(!valid)
     return showError("the input is not a valid equation.",equation);
@@ -32,7 +33,10 @@ function guess(equation) {
             const comp = guess.values[i];
             for (let j = 0; j < this.values.length; j++) {
                 const currGuess = this.values[j];
-                if (comp.value == currGuess.value && i == j) comp.state = states["right"];
+                if (comp.value == currGuess.value && i == j){
+                    comp.state = states["right"];
+                    break;
+                }
                 else if (comp.value == currGuess.value) comp.state = states["exists"];
             }
             if (comp.state == states["unknown"]) comp.state = states["wrong"];
