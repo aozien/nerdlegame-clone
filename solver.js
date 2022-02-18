@@ -1,5 +1,9 @@
-// (() => {
-let allSpace = generatePropabilitySpace();
+let allSpace;
+
+
+// let allSpace = generatePropabilitySpace();
+
+//--Generates the text file
 function generatePropabilitySpace() {
   let space = [];
   for (let i = 10; i < 100; i++) {
@@ -57,7 +61,7 @@ function generatePropabilitySpace() {
 
   let combinedSpaces = [...s1, ...s2, ...s3].filter(
     (x) => x.length == 8 && !x.includes("=-")
-  );
+  ).filter(x=> !x.endsWith("=0"));
   return combinedSpaces;
 }
 
@@ -98,10 +102,9 @@ function getSubset(arr, currGuess) {
 }
 
 function getSubsetFromAGuess(guess) {
-  let subset = getSubset(allSpace, guess);
+  let subset = getSubset(currentSubset, guess);
   return subset;
 }
-// })();
 
 function indexesOf(str, char) {
   let indices = [];

@@ -13,7 +13,7 @@
 
 <body>
     <div class="title">
-        <h1>Nerdlegame Clone </h1>
+        <h1>Nerdlegame Solver </h1>
         <div class="repo">
             <a class="repo-link glow-on-hover" target="_blank" href="https://github.com/aozien">github/aozien </a>
         </div>
@@ -22,21 +22,28 @@
     <div class="input-guess">
         <input type="text" class="txt-input" placeholder="e.g 4*5-3=17">
         <input type="button" class="btn" value="Submit" onclick="handleSubmitBtnClick()">
-    </div>
-    <div id="container">
 
     </div>
+    <div class="core">
+        <div id="container">
+        </div>
+        <div id="analysis">
+        <div class="loader"></div>
 
-   <p> Guess the secret equation with the least amount of tries.
-   </p>
-   <div class="input-guess">
-       <input type="text" class="txt-input">
-       <input type="button" class="btn" value="Submit" onclick="handleSubmitBtnClick()">
-   </div>
-   <div id="container">
-    
-   </div>
-
+            <h2 style="color: #222222;">Analysis</h2>
+            <b style=" font-size: 16px; "> What's a bit? <a href="https://youtu.be/v68zYyaEmEA">best explained here by [3b1b]</a></b>
+            <span class="info"> Nerdle have (16,371) possible answers.
+                <input type="button" class="btn" style="margin: 0px;" value="download" onclick="downloadList()">  </span> 
+            <div class=""><b>AVG Bits for this guess:</b> <span id="bits">4.58</span></div>
+            <div class=""><b>Total AVG Guesses for Guesses:</b> <span id="total-bits">9.2</span></div>
+            <div class=""><b>Actual Guesses Bits:</b> <span id="actual-bits">9.2</span></div>
+            <div class=""><b>Remainaing Possible Solutions count:</b>
+                <span id="remainingSubsetCount">16,371</span></div>
+            <div id="remainingSubset">
+                <textarea name="" id="" cols="30" rows="10" disabled></textarea>
+            </div>
+        </div>
+    </div>
     <div class="manage-secret">
         <input type="button" class="btn" value="Change secret" onclick="toggleSecret()">
         <div class="change-secret" style="display: none;">

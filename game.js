@@ -1,4 +1,8 @@
+
 let secretComponent = new guess("2+5+4=11");
+let currentSubset = [];
+let totalBits = 0;
+
 const states = {
     "wrong": -1,
     "unknown": 0,
@@ -6,25 +10,24 @@ const states = {
     "right": 2
 };
 function block(num = 0, state = 0) {
-    //Check if valid number/sign
     this.state = state;
     this.value = num;
 }
 
 function guess(equation) {
-    if(!/^([0-9]|\*|\=|\+|\-|\/)+$/.test(equation)) 
+    if (!/^([0-9]|\*|\=|\+|\-|\/)+$/.test(equation))
         return showError(`the input (${equation}) contains invalid characters! only numbers and [+,-*,/,=] are allowed.`);
- 
-        let chars = equation.split("");
+
+    let chars = equation.split("");
 
     if (chars.length != 8) {
         showError("block array length error", charArray);
         return;
     }
 
-    let valid = eval(equation.split('=')[0].replace(/^0+/ig,"")) == eval(equation.split('=')[1].replace(/^0+/ig,""))
-    if(!valid)
-    return showError(`the input (${equation}) is not a valid equation`);
+    let valid = eval(equation.split('=')[0].replace(/^0+/ig, "")) == eval(equation.split('=')[1].replace(/^0+/ig, ""))
+    if (!valid)
+        return showError(`the input (${equation}) is not a valid equation`);
 
     this.values = chars.map(a => new block(a));
     this.equation = equation;
@@ -33,7 +36,7 @@ function guess(equation) {
             const comp = guess.values[i];
             for (let j = 0; j < this.values.length; j++) {
                 const currGuess = this.values[j];
-                if (comp.value == currGuess.value && i == j){
+                if (comp.value == currGuess.value && i == j) {
                     comp.state = states["right"];
                     break;
                 }
@@ -52,18 +55,17 @@ function guess(equation) {
             if (!frequencies[a.value]) frequencies[a.value] = [];
             frequencies[a.value].unshift(i);
         })
-        
+
         guess.values.forEach(a => {
             if (currentFrequencies[a.value]
                 && frequencies[a.value].length > currentFrequencies[a.value].length) {
-                for (let i = 0; i < frequencies[a.value].length 
-                                 && frequencies[a.value].length > currentFrequencies[a.value].length; i++) {
+                for (let i = 0; i < frequencies[a.value].length
+                    && frequencies[a.value].length > currentFrequencies[a.value].length; i++) {
                     const index = frequencies[a.value][i];
                     let element = guess.values[index];
-                    if (element.state != states["right"] )
-                    {
+                    if (element.state != states["right"]) {
                         element.state = states["wrong"];
-                        frequencies[a.value].splice(i,1);
+                        frequencies[a.value].splice(i, 1);
                         i--;
                     }
                 }
@@ -71,36 +73,25 @@ function guess(equation) {
         })
         return guess;
     }
-
 }
 
 function evaluateGuess(equation) {
-    if (equation.length != 8) 
+    if (equation.length != 8)
         return showError("the input must be 8 characters long!");
     let newGuess = new guess(equation);
-    let result= secretComponent.compare(newGuess);
+    let result = secretComponent.compare(newGuess);
     drawGuess(result);
     return result;
 }
 
-function drawGuess(guess){
-    let container =document.getElementById("container")
-    container.innerHTML+=`<div class="row"></div>`;
+function drawGuess(guess) {
+    let container = document.getElementById("container")
+    container.innerHTML += `<div class="row"></div>`;
     let currRow = container.lastChild;
     for (let index = 0; index < guess.values.length; index++) {
         const element = guess.values[index];
-        let cls= element.state == 2? 'green': element.state == 1? 'yellow' : 'black';
-    const temp = `<div class="card-container ${cls}">${element.value}</div>`
-    currRow.innerHTML+=temp;
+        let cls = element.state == 2 ? 'green' : element.state == 1 ? 'yellow' : 'black';
+        const temp = `<div class="card-container ${cls}">${element.value}</div>`
+        currRow.innerHTML += temp;
     }
-}
-
-function changeSecret(newSecret){
-    secretComponent = new guess(newSecret);
-     document.getElementById("container").innerHTML="";
-}
-
-function showError(msg){
-    // console.error(msg);
-    // alert(msg);
 }
